@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Dotty Features</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+<!--		<link rel="stylesheet" href="css/theme/black.css">-->
+		<link rel="stylesheet" href="css/theme/solarized.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides"> <section>
+					<h1>Let's jump through randomly picked Dotty features</h1>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Trait Parameters](https://dotty.epfl.ch/docs/reference/other-new-features/trait-parameters.html)
+
+- Earlier only classes could have constructor parameters
+- Now it's unified with traits - they can have parameter as well
+- Child traits may not pass value to trait parameters - only classes can
+- If trait is inherited multiple times parameter must be specified exactly once
+
+
+	trait Greeting(val name: String) {
+	  def msg = s"How are you, $name"
+	}
+	class C extends Greeting("Bob") {
+	  println(msg)
+	}
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+## [Open Classes](https://dotty.epfl.ch/docs/reference/other-new-features/open-classes.html)
+
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Parameter Untupling](https://dotty.epfl.ch/docs/reference/other-new-features/parameter-untupling.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Tupled Function](https://dotty.epfl.ch/docs/reference/other-new-features/tupled-function.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [threadUnsafe annotation](https://dotty.epfl.ch/docs/reference/other-new-features/threadUnsafe-annotation.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Programmatic Structural Types](https://dotty.epfl.ch/docs/reference/changed-features/structural-types.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Wildcard Arguments in Types](https://dotty.epfl.ch/docs/reference/changed-features/wildcards.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Match Expressions](https://dotty.epfl.ch/docs/reference/changed-features/match-syntax.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Pattern Bindings](https://dotty.epfl.ch/docs/reference/changed-features/pattern-bindings.html)
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [Lazy Vals initialization](https://dotty.epfl.ch/docs/reference/changed-features/lazy-vals-init.html)
+					</textarea>
+				</section>
+				<section>
+                    <img src="gifs/thatsall.gif" style="height:500px">
+				</section>
+
+
+
+
+
+
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+                width: "1300",
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
