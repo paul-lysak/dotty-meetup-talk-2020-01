@@ -38,12 +38,14 @@
 - If trait is inherited multiple times parameter must be specified exactly once
 
 
-	trait Greeting(val name: String) {
-	  def msg = s"How are you, $name"
-	}
-	class C extends Greeting("Bob") {
-	  println(msg)
-	}
+```scala
+trait Greeting(val name: String) {
+  def msg = s"How are you, $name"
+}
+class C extends Greeting("Bob") {
+  println(msg)
+}
+```
 					</textarea>
 				</section>
 
@@ -51,11 +53,53 @@
 					<textarea data-template>
 ## [Open Classes](https://dotty.epfl.ch/docs/reference/other-new-features/open-classes.html)
 
+- In Scala or Java you can extend any class unless it's `final`
+- In Dotty you need to enable it explicitly: `open`
+- If child is in the same file or if ad-hoc extension is enabled - no such restriction
+- `NOT abstract AND NOT open === sealed`
+
+
+```scala
+open class Parent { }
+
+class Chile extends Parent { }
+```
+						
+Or:
+
+```scala
+import scala.language.adhocExtensions
+```
+
 					</textarea>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
 ## [Parameter Untupling](https://dotty.epfl.ch/docs/reference/other-new-features/parameter-untupling.html)
+
+Can use functions of multiple arguments to handle tuples.
+
+```scala
+val xs: List[(Int, Int)]
+
+```
+
+Old:
+```scala
+xs map {
+  case (x, y) => x + y
+}
+
+```
+
+New:
+```scala
+xs.map {
+  (x, y) => x + y
+}
+```
+
+Profit!
 					</textarea>
 				</section>
 				<section data-markdown>
