@@ -102,10 +102,23 @@ xs.map {
 Profit!
 					</textarea>
 				</section>
-				<section data-markdown>
-					<textarea data-template>
+				<section>
+          <div data-markdown><textarea data-template>
 ## [Tupled Function](https://dotty.epfl.ch/docs/reference/other-new-features/tupled-function.html)
-					</textarea>
+
+- `TupledFunction` trait with `FunctionXXL` under the hood may be used to "tuplerize" and "untuplerize" functions of more than 22 parameters
+- Requires some hand-crafted conversion:
+					</textarea></div>
+          <pre><code data-trim data-noescape class="scala">
+def [F, Args <: Tuple, R](f: F) tupled (given tf: TupledFunction[F, Args => R]): 
+    Args => R = <mark>tf.tupled(f)</mark>
+...
+def m26(a: Int, b: Int, ... z: Int): Int = { a + b + ... + z}
+val f26 = m26 _
+val f26t = <mark>f26.tupled</mark>
+val t26 = (1, 2, ... 26)
+val result = f26t(t26)
+          </code></pre>
 				</section>
 				<section data-markdown>
 					<textarea data-template>

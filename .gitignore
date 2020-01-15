@@ -2,6 +2,8 @@
 *.log
 *.swp
 .idea
+.dotty-ide.json
+.dotty-ide-artifact
 
 target
 
