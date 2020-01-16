@@ -182,11 +182,48 @@ val l1: List[?] = List(123)
 				<section data-markdown>
 					<textarea data-template>
 ## [Match Expressions](https://dotty.epfl.ch/docs/reference/changed-features/match-syntax.html)
+- Look, ma - no hands:
+
+```scala
+val v1 = "aaa"
+val v2 = v1 match {
+  case "aaa" => "3a"
+  case _ => "other"
+} match {
+  case "3a" => "three a"
+  case _ => "something other"
+}
+
+```
+- Such chaining of `match`-es wouldn't compile Scala 2.X because `match` wasn't a regular operator.
+- We can also do `v1.match {...}` now
 					</textarea>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
 ## [Pattern Bindings](https://dotty.epfl.ch/docs/reference/changed-features/pattern-bindings.html)
+- More type safety to the God of Typesafety! Having such data:
+
+```scala
+val l1: List[Any] = List(1, 2, 3)
+val t1 = (1, 2, 3)
+```
+
+- This code would compile in Scala 2.x but fails in Dotty with `-strict` parameter and in Scala 3.1:
+
+```scala
+val (a: String) :: _ = l1 //fails at runtime
+val a :: b  = l1
+val a :: _  = l1
+```
+
+- This code does compile:
+
+```scala
+
+val a :: _ : @unchecked = l1
+val (x, _, _) = t1
+```
 					</textarea>
 				</section>
 				<section data-markdown>

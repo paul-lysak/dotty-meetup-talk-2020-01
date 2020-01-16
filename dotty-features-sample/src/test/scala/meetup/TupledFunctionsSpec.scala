@@ -10,7 +10,8 @@ class TupledFunctionsSpec {
     a + b
   }
 
-  val f2 = m2 _
+//  val f2 = m2 _
+  val f2 = m2
 
   def m26(a: Int,
           b: Int,
@@ -66,7 +67,8 @@ class TupledFunctionsSpec {
       z
   }
 
-  val f26 = m26 _
+//  val f26 = m26 _
+  val f26 = m26
 
 
   @Test def t1(): Unit = {
