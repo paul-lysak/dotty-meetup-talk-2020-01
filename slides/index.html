@@ -123,16 +123,60 @@ val result = f26t(t26)
 				<section data-markdown>
 					<textarea data-template>
 ## [threadUnsafe annotation](https://dotty.epfl.ch/docs/reference/other-new-features/threadUnsafe-annotation.html)
+
+- One more tool for premature optimization
+- If you're sure that lazy val won't be used concurrently you can speed up access to it 
+
+
+```scala
+import scala.annotation.threadUnsafe
+
+class Hello {
+  @threadUnsafe lazy val x: Int = 1
+}
+```
 					</textarea>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
 ## [Programmatic Structural Types](https://dotty.epfl.ch/docs/reference/changed-features/structural-types.html)
+- Can add compile-time checks to generic "duck-typed" classes 
+- Compile-time checks apply when accessing the fields, not when creating an instance 
+
+```scala
+  case class Record(elems: (String, Any)*) extends Selectable {
+    def selectDynamic(name: String): Any = elems.find(_._1 == name).get._2
+  }
+
+  type Person = Record {
+    val name: String
+    val age: Int
+  }
+
+  def main(args: Array[String]): Unit = {
+    val person = Record("name" -> "Emma", "age" -> 42).asInstanceOf[Person]
+    println(s"${person.name} is ${person.age} years old.")
+  }
+```
 					</textarea>
 				</section>
 				<section data-markdown>
 					<textarea data-template>
 ## [Wildcard Arguments in Types](https://dotty.epfl.ch/docs/reference/changed-features/wildcards.html)
+- Old: 
+
+```scala
+val l1: List[_] = List(123)
+```
+
+- New:
+
+```scala
+val l1: List[?] = List(123)
+```
+- Better distinguishes between type constructor `List[_]` and wildcard type `List[?]` 
+- In future type definition `C[_]` will be a shortcut for `[X] =>> C[X]` - just as function call f(_) is a shortcut for x => f(x)
+
 					</textarea>
 				</section>
 				<section data-markdown>
