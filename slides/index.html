@@ -122,23 +122,6 @@ val result = f26t(t26)
 				</section>
 				<section data-markdown>
 					<textarea data-template>
-## [threadUnsafe annotation](https://dotty.epfl.ch/docs/reference/other-new-features/threadUnsafe-annotation.html)
-
-- One more tool for premature optimization
-- If you're sure that lazy val won't be used concurrently you can speed up access to it 
-
-
-```scala
-import scala.annotation.threadUnsafe
-
-class Hello {
-  @threadUnsafe lazy val x: Int = 1
-}
-```
-					</textarea>
-				</section>
-				<section data-markdown>
-					<textarea data-template>
 ## [Programmatic Structural Types](https://dotty.epfl.ch/docs/reference/changed-features/structural-types.html)
 - Can add compile-time checks to generic "duck-typed" classes 
 - Compile-time checks apply when accessing the fields, not when creating an instance 
@@ -229,8 +212,40 @@ val (x, _, _) = t1
 				<section data-markdown>
 					<textarea data-template>
 ## [Lazy Vals initialization](https://dotty.epfl.ch/docs/reference/changed-features/lazy-vals-init.html)
+- Generated code has been changed to avoid unnecessary deadlocks (real deadlocks may still happen) and increase initialization speed by 50% 
+- Uses state machine (non-initialized, initializing, concurrent readers, initialized) and compare-and-swap operation
+instead of double-checking and `synchronized` block. Synchronization may still happen if concurrent access detected.
+
+```scala
+object A {
+  lazy val a0 = B.b
+  lazy val a1 = 17
+}
+
+object B {
+  lazy val b = A.a1
+}
+```
 					</textarea>
 				</section>
+				<section data-markdown>
+					<textarea data-template>
+## [threadUnsafe annotation](https://dotty.epfl.ch/docs/reference/other-new-features/threadUnsafe-annotation.html)
+
+- One more tool for premature optimization
+- If you're sure that lazy val won't be used concurrently you can speed up access to it 
+
+
+```scala
+import scala.annotation.threadUnsafe
+
+class Hello {
+  @threadUnsafe lazy val x: Int = 1
+}
+```
+					</textarea>
+				</section>
+
 				<section>
                     <img src="gifs/thatsall.gif" style="height:500px">
 				</section>
