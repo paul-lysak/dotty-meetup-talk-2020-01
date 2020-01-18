@@ -48,60 +48,47 @@ class C extends Greeting("Bob") {
 ```
 					</textarea>
 				</section>
-
-				<section data-markdown>
-					<textarea data-template>
-## [Open Classes](https://dotty.epfl.ch/docs/reference/other-new-features/open-classes.html)
-
-- In Scala or Java you can extend any class unless it's `final`
-- In Dotty you need to enable it explicitly: `open`
-- If child is in the same file or if ad-hoc extension is enabled - no such restriction
-- `NOT abstract AND NOT open === sealed`
-
-
-```scala
+        <section>
+          <h2><a href="https://dotty.epfl.ch/docs/reference/other-new-features/open-classes.html">Open Classes</a></h2>
+          <ul>
+            <li>In Scala or Java you can extend any class unless it's <code>final</code></li>
+            <li>In Dotty you need to enable it explicitly: <code>open</code></li>
+            <pre><code data-trim data-noescape class="scala">
 open class Parent { }
 
 class Chile extends Parent { }
-```
-						
-Or:
-
-```scala
+            </code></pre>
+            <li>Or:</li>
+            <pre><code data-trim data-noescape class="scala">
 import scala.language.adhocExtensions
-```
+            </code></pre>
+            <li>If child is in the same file or if ad-hoc extension is enabled - no such restriction</li>
+            <li><code>NOT abstract AND NOT open === sealed</code></li>
+          </ul>
 
-					</textarea>
-				</section>
-				<section data-markdown>
-					<textarea data-template>
-## [Parameter Untupling](https://dotty.epfl.ch/docs/reference/other-new-features/parameter-untupling.html)
-
-Can use functions of multiple arguments to handle tuples.
-
-```scala
+        </section>
+        <section>
+          <h2><a href="https://dotty.epfl.ch/docs/reference/other-new-features/parameter-untupling.html">Parameter Untupling</a></h2>
+          <ul>
+            <li>Can use functions of multiple arguments to handle tuples.</li>
+            <pre><code data-trim data-noescape class="scala">
 val xs: List[(Int, Int)]
-
-```
-
-Old:
-```scala
-xs map {
+            </code></pre>
+            <li>Old:</li>
+            <pre><code data-trim data-noescape class="scala">
+xs.map {
   case (x, y) => x + y
 }
-
-```
-
-New:
-```scala
+            </code></pre>
+            <li>New:</li>
+            <pre><code data-trim data-noescape class="scala">
 xs.map {
   (x, y) => x + y
 }
-```
-
-Profit!
-					</textarea>
-				</section>
+            </code></pre>
+            <li>Profit!</li>
+          </ul>
+        </section>
 				<section>
           <div data-markdown><textarea data-template>
 ## [Tupled Function](https://dotty.epfl.ch/docs/reference/other-new-features/tupled-function.html)
@@ -143,31 +130,26 @@ val result = f26t(t26)
 ```
 					</textarea>
 				</section>
-				<section data-markdown>
-					<textarea data-template>
-## [Wildcard Arguments in Types](https://dotty.epfl.ch/docs/reference/changed-features/wildcards.html)
-- Old: 
-
-```scala
+        <section>
+          <h2><a href="https://dotty.epfl.ch/docs/reference/changed-features/wildcards.html">Wildcard Arguments in Types</a></h2>
+          <ul>
+            <li>Old:</li>
+            <pre><code data-trim data-noescape class="scala">
 val l1: List[_] = List(123)
-```
-
-- New:
-
-```scala
+            </code></pre>
+            <li>New:</li>
+            <pre><code data-trim data-noescape class="scala">
 val l1: List[?] = List(123)
-```
-- Better distinguishes between type constructor `List[_]` and wildcard type `List[?]` 
-- In future type definition `C[_]` will be a shortcut for `[X] =>> C[X]` - just as function call f(_) is a shortcut for x => f(x)
-
-					</textarea>
-				</section>
-				<section data-markdown>
-					<textarea data-template>
-## [Match Expressions](https://dotty.epfl.ch/docs/reference/changed-features/match-syntax.html)
-- Look, ma - no hands:
-
-```scala
+            </code></pre>
+            <li>Better distinguishes between type constructor <code>List[_]</code> and wildcard type <code>List[?]</code></li>
+            <li>In future type definition <code>C[_]</code> will be a shortcut for <code>[X] =>> C[X]</code> - just as function call <code>f(_)</code> is a shortcut for <code>x => f(x)</code></li>
+          </ul>
+        </section>
+        <section>
+          <h2><a href="https://dotty.epfl.ch/docs/reference/changed-features/match-syntax.html">Match Expressions</a></h2>
+          <ul>
+            <li>Look, ma - no hands:</li>
+            <pre><code data-trim data-noescape class="scala">
 val v1 = "aaa"
 val v2 = v1 match {
   case "aaa" => "3a"
@@ -176,39 +158,33 @@ val v2 = v1 match {
   case "3a" => "three a"
   case _ => "something other"
 }
-
-```
-- Such chaining of `match`-es wouldn't compile Scala 2.X because `match` wasn't a regular operator.
-- We can also do `v1.match {...}` now
-					</textarea>
-				</section>
-				<section data-markdown>
-					<textarea data-template>
-## [Pattern Bindings](https://dotty.epfl.ch/docs/reference/changed-features/pattern-bindings.html)
-- More type safety to the God of Typesafety! Having such data:
-
-```scala
+            </code></pre>
+            <li>Such chaining of <code>match</code>-es wouldn't compile Scala 2.X because <code>match</code> wasn't a regular operator</li>
+            <li>We can also do <code>v1.match {...}</code> now</li>
+          </ul>
+        </section>
+        <section>
+          <h2><a href="">Pattern Bindings</a></h2>
+          <ul>
+            <li>More type safety to the God of Typesafety! Having such data:</li>
+            <pre><code data-trim data-noescape class="scala">
 val l1: List[Any] = List(1, 2, 3)
 val t1 = (1, 2, 3)
-```
-
-- This code would compile in Scala 2.x but fails in Dotty with `-strict` parameter and in Scala 3.1:
-
-```scala
+            </code></pre>
+            <li>This code would compile in Scala 2.x but fails in Dotty with `-strict` parameter and in Scala 3.1:</li>
+            <pre><code data-trim data-noescape class="scala">
 val (a: String) :: _ = l1 //fails at runtime
 val a :: b  = l1
 val a :: _  = l1
-```
-
-- This code does compile:
-
-```scala
-
+            </code></pre>
+            <li>This code does compile:</li>
+            <pre><code data-trim data-noescape class="scala">
 val a :: _ : @unchecked = l1
 val (x, _, _) = t1
-```
-					</textarea>
-				</section>
+            </code></pre>
+
+          </ul>
+        </section>
 				<section data-markdown>
 					<textarea data-template>
 ## [Lazy Vals initialization](https://dotty.epfl.ch/docs/reference/changed-features/lazy-vals-init.html)
